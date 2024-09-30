@@ -87,8 +87,10 @@ function createCartDiv(arr) {
 
 createCartDiv(cartArray)
 
-let card = document.querySelector('.card');
+let card = document.querySelectorAll('.card');
 
 function flipCard() {
-    card.classList.toggle('flip') ;
+    this.classList.toggle('flip');
 }
+
+card.forEach(cards => cards.addEventListener('click', flipCard));

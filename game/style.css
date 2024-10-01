@@ -166,7 +166,8 @@
 
 .popup-h2,
 .popup-score,
-.score{
+.score,
+.popup-best{
     color: white;
 }
 

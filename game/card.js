@@ -139,9 +139,12 @@ function checkForMatch() {
 function finishcount() {
     count++;
     console.log(count)
-    if (count === 10) {
+    if (count === 1) {
         document.querySelector(".score").textContent = score;
+        localStorage.setItem("game", score);
         modal.classList.add('open');
+        document.querySelector(".popup-best").textContent = localStorage.getItem("game");
+      
     }
 }
 
@@ -177,12 +180,9 @@ function restartGame() {
     modal.classList.remove('open');
 }
 
-let btnRestart = document.querySelector('.button-restart');
+
 let btnCross = document.querySelector('.popup-close');
-
-
-btnRestart.addEventListener('click', restartGame)
-btnCross.addEventListener('click', closeModal)
+btnCross.addEventListener('click', restartGame)
 
 function closeModal() {
     modal.classList.remove('open');

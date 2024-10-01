@@ -98,6 +98,7 @@ let firtsCard, secondCard;
 let score = 0;
 let count = 0;
 let modal = document.querySelector('.popup');
+let games = [];
 
 function resetBoard() {
     [hasFlippedCard, lockBoard] = [false, false];
@@ -138,13 +139,15 @@ function checkForMatch() {
 
 function finishcount() {
     count++;
-    console.log(count)
-    if (count === 1) {
+    if (count === 10) { //10 совпадений, тк 10 карточек
         document.querySelector(".score").textContent = score;
-        localStorage.setItem("game", score);
+        if(games.length === 10) { //Сохраняем только 10, если больше, то удаляем всегда первый элемент из массива
+            games.shift();
+        }
+        games.push(score);
+        localStorage.setItem("game", JSON.stringify(games));
         modal.classList.add('open');
-        document.querySelector(".popup-best").textContent = localStorage.getItem("game");
-      
+        document.querySelector(".popup-best").textContent =  JSON.parse(localStorage.getItem("game"));
     }
 }
 
@@ -178,14 +181,12 @@ function restartGame() {
     count = 0;
     score = 0;
     modal.classList.remove('open');
+    let card = document.querySelectorAll('.card');
+    card.forEach(cards => cards.addEventListener('click', flipCard));
 }
 
 
 let btnCross = document.querySelector('.popup-close');
-btnCross.addEventListener('click', restartGame)
-
-function closeModal() {
-    modal.classList.remove('open');
-}
+btnCross.addEventListener('click', restartGame);
 
 

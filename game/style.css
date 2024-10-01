@@ -138,3 +138,70 @@
         grid-template-columns: repeat(3, 1fr);
     }
 } 
+
+
+/* MODAl */
+.popup{
+    position: fixed;
+    z-index: 10;
+    margin: auto;
+    display: none;
+}
+
+.open {
+    display: block;
+}
+
+.popup-container{
+    max-width: 400px;
+    background-color: black;
+    margin: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.popup-h2,
+.popup-score,
+.score{
+    color: white;
+}
+
+.button-restart{
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    background-color: white;
+    border: 2px solid white;
+    border-radius: 100px;
+    padding: 5px;
+}
+
+.button-restart:hover{
+    background-color: gray;
+}
+
+.popup-close{
+    border: 2px solid black;
+    width: 42px;
+    height: 42px;
+    border-radius: 100px;
+    position: absolute;
+    top: -42px;
+    right: -42px;
+    background: white;
+}
+
+.popup-cross::after{
+    display: inline-block;
+    content: "\00d7";
+    font-size: 32px;
+    font-weight: lighter;
+}
+
+.popup-close:hover{
+    background: gray;
+}

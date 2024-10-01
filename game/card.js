@@ -55,6 +55,8 @@ const cardData = [
 let cartArray = cardData.concat(cardData);
 cartArray.sort(() => 0.5 - Math.random())
 
+
+//Создаю карточки
 function createCartDiv(arr) {
     arr.forEach(element => {
         let container = document.querySelector('.container');
@@ -88,12 +90,14 @@ function createCartDiv(arr) {
 
 createCartDiv(cartArray)
 
+//логика игры!
 let card = document.querySelectorAll('.card');
 let hasFlippedCard = false;
 let lockBoard = false;
 let firtsCard, secondCard;
 let score = 0;
 let count = 0;
+let modal = document.querySelector('.popup');
 
 function resetBoard() {
     [hasFlippedCard, lockBoard] = [false, false];
@@ -105,6 +109,7 @@ function resetBoard() {
 function flipCard() {
     if (lockBoard) return;
     if (this === firtsCard) return; //это чтобы на одну карту 2 раза не нажимать
+
     this.classList.add('flip');
 
     if(!hasFlippedCard){
@@ -121,14 +126,23 @@ function flipCard() {
 }
 
 //логика сопоставления
-
 function checkForMatch() {
     if(firtsCard.dataset.name === secondCard.dataset.name) {
+        finishcount();
         disableCards();
         return;
     }
 
     unflipCards();
+}
+
+function finishcount() {
+    count++;
+    console.log(count)
+    if (count === 10) {
+        document.querySelector(".score").textContent = score;
+        modal.classList.add('open');
+    }
 }
 
 function disableCards() {
@@ -141,6 +155,8 @@ function disableCards() {
 function unflipCards() {
     lockBoard = true;
 
+
+//1.5 секунды ждем, переворачиваем и сбрасываем карты
 setTimeout(() => {
     firtsCard.classList.remove('flip');
     secondCard.classList.remove('flip');
@@ -149,3 +165,27 @@ setTimeout(() => {
 }
 
 card.forEach(cards => cards.addEventListener('click', flipCard));
+
+//Рестарт игры
+function restartGame() {
+    resetBoard();
+    document.querySelector('.container').innerHTML = '';
+    cartArray.sort(() => 0.5 - Math.random());
+    createCartDiv(cartArray);
+    count = 0;
+    score = 0;
+    modal.classList.remove('open');
+}
+
+let btnRestart = document.querySelector('.button-restart');
+let btnCross = document.querySelector('.popup-close');
+
+
+btnRestart.addEventListener('click', restartGame)
+btnCross.addEventListener('click', closeModal)
+
+function closeModal() {
+    modal.classList.remove('open');
+}
+
+

@@ -62,6 +62,7 @@ function createCartDiv(arr) {
         let  card = document.createElement('div');
         card.classList.add('card');
         card.id = element.id;
+        card.setAttribute("data-name", element.name);
 
         let front = document.createElement('div');
         front.classList.add('front-face');
@@ -88,9 +89,63 @@ function createCartDiv(arr) {
 createCartDiv(cartArray)
 
 let card = document.querySelectorAll('.card');
+let hasFlippedCard = false;
+let lockBoard = false;
+let firtsCard, secondCard;
+let score = 0;
+let count = 0;
 
+function resetBoard() {
+    [hasFlippedCard, lockBoard] = [false, false];
+    [firtsCard, secondCard] = [null, null];
+  }
+
+
+//Переворачиваем карточки и проверяем состояние
 function flipCard() {
-    this.classList.toggle('flip');
+    if (lockBoard) return;
+    if (this === firtsCard) return; //это чтобы на одну карту 2 раза не нажимать
+    this.classList.add('flip');
+
+    if(!hasFlippedCard){
+        hasFlippedCard = true;
+        firtsCard = this;
+        return;
+    }
+
+    secondCard = this;
+
+    score++;
+
+    checkForMatch();
+}
+
+//логика сопоставления
+
+function checkForMatch() {
+    if(firtsCard.dataset.name === secondCard.dataset.name) {
+        disableCards();
+        return;
+    }
+
+    unflipCards();
+}
+
+function disableCards() {
+    firtsCard.removeEventListener('click', flipCard);
+    secondCard.removeEventListener('click', flipCard);
+
+    resetBoard();
+  }
+
+function unflipCards() {
+    lockBoard = true;
+
+setTimeout(() => {
+    firtsCard.classList.remove('flip');
+    secondCard.classList.remove('flip');
+    resetBoard();
+}, 1500);
 }
 
 card.forEach(cards => cards.addEventListener('click', flipCard));

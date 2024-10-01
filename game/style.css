@@ -9,9 +9,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    flex-direction: column;
+    gap: 60px;
     margin: auto;
 }  
+
+.wrapper-footer{
+    max-width: 1280px;
+    margin: auto;
+}
+
+
+.div-title{
+    width: 100%;
+    background-color: black;
+    margin-top: 30px;
+    padding: 20px;
+}
+
+.title{
+    color: white;
+    text-align: center;
+}
 
 .container{
     margin: auto;
@@ -59,3 +78,63 @@
 .back-face {
     transform: rotateY(0);
 }
+
+
+.footer-line{
+    width: 100%;
+    background-color: black;
+    margin-top: 60px;
+    padding: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.link-name,
+.link-course{
+    color: white;
+    text-decoration: none;
+}
+
+.year{
+    color: white;
+}
+
+
+@media (max-width: 750px){
+    .container{
+        grid-template-columns: repeat(4, 1fr);
+    }
+} 
+
+@media (max-width: 560px){
+    .container{
+        grid-auto-rows: 60px;
+        grid-gap: 40px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .footer-line{
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .year{
+        order: 1;
+    }
+} 
+
+@media (max-width: 540px){
+    .container{
+        justify-content: center;
+        grid-auto-rows: 80px;
+        grid-gap: 20px;
+    }
+} 
+
+@media (max-width: 460px){
+    .container{
+        grid-template-columns: repeat(3, 1fr);
+    }
+} 
